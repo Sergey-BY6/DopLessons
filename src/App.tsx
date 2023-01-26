@@ -1,78 +1,57 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
-import { SupperButton} from './components/SuperButton';
-import {SuperInput} from './components/SuperInput';
-
-type TodosType = {
-    completed: boolean
-    id: number
-    title: string
-    userId: number
-}
+import {SuperButton} from './SuperButton/SuperButton';
+import {SuperTodoList} from './SuperButton/SuperTodoList';
 
 
 function App() {
 
-    const [todos, setTodos] = useState<TodosType[]>([])
-
-    const[newTitle, setNewTitle] = useState("")
-
-
-    const myFetch = () => {
-        fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(response => response.json())
-            .then(json => setTodos(json))
-    }
-
-    useEffect(() => {
-        myFetch()
-    }, [])
-
-    const showUpHandler = () => {
-        myFetch()
-    }
-
-    const deleteHandler = () => {
-        setTodos([])
-    }
-
-    const AddNewTitleHandler = () => {
-        const newTodo = {
-            completed: false,
-            id: todos.length + 1,
-            title: newTitle,
-            userId: 100200
-        }
-        setTodos([newTodo, ...todos ])
-        setNewTitle("")
-    }
-
-
-    const mappedTodos = todos.map(el => {
-        return (
-            <li key={el.id}>
-                <span>{el.id}</span>
-                <span>{el.title}</span>
-                <input type="checkbox" checked={el.completed}/>
-            </li>
-        )
-    })
+    const tasks = [
+        { id: 1, title: "HTML&CSS", isDone: true },
+        { id: 2, title: "JS", isDone: true },
+        { id: 3, title: "ReactJS", isDone: false }
+    ]
 
     return (
-        <div className="App">
-            <SupperButton name={'Shop up'} callBack={showUpHandler}/>
-            <SupperButton name={'DELETE'} callBack={deleteHandler}/>
-            <SuperInput newTitle={newTitle} setNewTitle={setNewTitle}/>
-            <SupperButton name={"AddNewTitle"} callBack={AddNewTitleHandler}/>
+        <div>
 
-            <ul>
-                {mappedTodos}
-            </ul>
+
+            {/*    <SuperButton callback={() => {}} color={'red'}>RED SUPER BUTTON</SuperButton>*/}
+            {/*    <SuperButton callback={() => {}} >DEFAULT SUPER BUTTON</SuperButton>*/}
+            {/*    <SuperButton callback={() => {}} color={'secondary'} disabled>RED SUPER BUTTON</SuperButton>*/}
+
+
+            <SuperTodoList tasks={tasks}>
+                <SuperButton callback={() => {}} color={'red'}>RED SUPER BUTTON</SuperButton>
+                <SuperButton callback={() => {}} >DEFAULT SUPER BUTTON</SuperButton>
+                <SuperButton callback={() => {}} color={'secondary'} disabled>RED SUPER BUTTON</SuperButton>
+                <img src="https://static.kupindoslike.com/Adidas-ZX-750-muske-patike-besplatna-dostava_slika_O_2883884.jpg" alt="image" width={"500px"}/>
+
+            </SuperTodoList>
+
+
+            <SuperTodoList tasks={tasks}>
+                <SuperButton callback={() => {}} color={'red'}>RED SUPER BUTTON</SuperButton>
+                <SuperButton callback={() => {}} >DEFAULT SUPER BUTTON</SuperButton>
+                <SuperButton callback={() => {}} color={'secondary'} disabled>RED SUPER BUTTON</SuperButton>
+                <img src="https://outmaxshop.ru/components/com_jshopping/files/img_products/14220/adidas-marathon-tr-19-14220-5.jpg" alt="image" width={"450px"}/>
+
+
+            </SuperTodoList>
+
+            <SuperTodoList tasks={tasks}>
+                <SuperButton callback={() => {}} color={'red'}>RED SUPER BUTTON</SuperButton>
+                <SuperButton callback={() => {}} >DEFAULT SUPER BUTTON</SuperButton>
+                <SuperButton callback={() => {}} color={'secondary'} disabled>RED SUPER BUTTON</SuperButton>
+                <img src="https://images.ua.prom.st/451454349_w640_h640_krossovki-nike-air.jpg" alt="image" width={"500px"}/>
+                
+            </SuperTodoList>
 
 
         </div>
-    );
+
+    )
 }
+
 
 export default App;
